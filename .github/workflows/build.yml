@@ -1,0 +1,35 @@
+name: Build Valheim Skill Multiplier
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore src/ValheimSkillMultiplier/ValheimSkillMultiplier.csproj
+
+      - name: Build
+        run: dotnet build src/ValheimSkillMultiplier/ValheimSkillMultiplier.csproj --configuration Release --no-restore
+
+      - name: Upload mod DLL
+        uses: actions/upload-artifact@v4
+        with:
+          name: ValheimSkillMultiplier
+          path: src/ValheimSkillMultiplier/bin/Release/netstandard2.0/ValheimSkillMultiplier.dll
+          if-no-files-found: error

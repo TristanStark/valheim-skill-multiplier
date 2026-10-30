@@ -1,0 +1,19 @@
+# .NET build outputs
+**/bin/
+**/obj/
+.vs/
+.idea/
+*.user
+*.suo
+*.tmp
+*.log
+
+# Game / BepInEx files are not shipped with the source
+BepInEx/
+Valheim_Data/
+libs/
+*.pdb
+
+# Local machine
+.DS_Store
+Thumbs.db
